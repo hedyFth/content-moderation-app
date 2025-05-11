@@ -1,0 +1,29 @@
+# ✅ 1. Mutation - Submit Clean Content
+mutation SubmitCleanContent {
+  submitContent(text: "You are great!", userId: "student123") {
+    _id
+    text
+    approved
+    createdAt
+  }
+}
+
+# ❌ 2. Mutation - Submit Rejected Content
+mutation SubmitBadContent {
+  submitContent(text: "You are bad", userId: "troll123") {
+    _id
+    text
+    approved
+    createdAt
+  }
+}
+
+# 🔍 3. Query - Get Approved Content
+query GetApprovedContent {
+  approvedContent {
+    _id
+    text
+    userId
+    createdAt
+  }
+}

@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+    depends_on:
+      - zookeeper
+
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  moderation-service:
+    build: ./moderation-service
+    depends_on:
+      - kafka
+      - mongo
+    environment:
+      MONGO_URL: mongodb://mongo:27017/contentDB
+      KAFKA_BROKER: kafka:9092
+
+  grpc-processor:
+    build: ./grpc-processor
+    ports:
+      - "50051:50051"
+    depends_on:
+      - mongo
+    volumes:
+      - ./shared:/shared
+
+  api-gateway:
+    build: ./api-gateway
+    ports:
+      - "3000:3000"
+    depends_on:
+      - kafka
+      - grpc-processor
+
+volumes:
+  mongo-data:

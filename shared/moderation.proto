@@ -1,0 +1,16 @@
+// shared/moderation.proto
+syntax = "proto3";
+
+package moderation;
+
+service ModerationService {
+  rpc CheckContent(ContentRequest) returns (ContentResponse);
+}
+
+message ContentRequest {
+  string text = 1;
+}
+
+message ContentResponse {
+  string result = 1;
+}
