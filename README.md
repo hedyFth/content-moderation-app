@@ -120,25 +120,9 @@ graph TD
 ```
 
 ---
-<<<<<<< HEAD
 
-## 🧪 Outils de Test
 
-- ✅ [Postman](https://www.postman.com/)
-- ✅ [Apollo GraphQL Sandbox](https://studio.apollographql.com/)
-- ✅ MongoDB Compass (base : `approvedContent`)
 
----
-
-## ⚠️ Défis rencontrés
-
-- Intégration correcte entre Kafka et le gRPC client
-- Mapping des collections MongoDB entre "pending" et "approved"
-- Détection automatique de contenus toxiques (logique simple pour la démo)
-
----
-
-## 📄 Auteur
 
 **Hedy Fathallah – Projet académique (Microservices & Architecture SOA)**  
 
