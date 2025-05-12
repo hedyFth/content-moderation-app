@@ -10,7 +10,7 @@ const moderationPackage = grpcObj.moderation;
 
 const server = new grpc.Server();
 
-// 🚫 List of toxic / negative words
+
 const toxicWords = ['bad', 'hate', 'violence', 'kill', 'stupid', 'dumb', 'terror'];
 
 server.addService(moderationPackage.ModerationService.service, {
